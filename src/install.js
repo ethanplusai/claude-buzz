@@ -11,13 +11,24 @@ const HOOK_MARKER = 'claude-notify notify';
 const TERMINAL_NOTIFIER_URL =
   'https://github.com/julienXX/terminal-notifier/releases/download/2.0.0/terminal-notifier-2.0.0.zip';
 
+function resolveCliPath() {
+  // Hooks run in a minimal shell without NVM/profile loaded.
+  // We need the absolute path to the claude-notify binary.
+  try {
+    return execSync('which claude-notify', { encoding: 'utf8' }).trim();
+  } catch {
+    return 'claude-notify'; // fallback
+  }
+}
+
 function makeHookEntry() {
+  const cliPath = resolveCliPath();
   return {
     matcher: '',
     hooks: [
       {
         type: 'command',
-        command: HOOK_MARKER,
+        command: `${cliPath} notify`,
         timeout: 10,
       },
     ],
@@ -25,7 +36,7 @@ function makeHookEntry() {
 }
 
 function isOurHook(entry) {
-  return entry?.hooks?.some((h) => h.command === HOOK_MARKER);
+  return entry?.hooks?.some((h) => h.command?.endsWith('claude-notify notify'));
 }
 
 function mergeHooks(settings) {
