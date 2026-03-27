@@ -6,18 +6,18 @@ const { writeConfig, DEFAULT_BASE, getTerminalNotifierPath } = require('./config
 const { detectTerminal } = require('./terminal.js');
 
 const CLAUDE_SETTINGS = path.join(os.homedir(), '.claude', 'settings.json');
-const HOOK_MARKER = 'claudecode-notify notify';
+const HOOK_MARKER = 'claude-buzz notify';
 
 const TERMINAL_NOTIFIER_URL =
   'https://github.com/julienXX/terminal-notifier/releases/download/2.0.0/terminal-notifier-2.0.0.zip';
 
 function resolveCliPath() {
   // Hooks run in a minimal shell without NVM/profile loaded.
-  // We need the absolute path to the claudecode-notify binary.
+  // We need the absolute path to the claude-buzz binary.
   try {
-    return execSync('which claudecode-notify', { encoding: 'utf8' }).trim();
+    return execSync('which claude-buzz', { encoding: 'utf8' }).trim();
   } catch {
-    return 'claudecode-notify'; // fallback
+    return 'claude-buzz'; // fallback
   }
 }
 
@@ -36,7 +36,7 @@ function makeHookEntry() {
 }
 
 function isOurHook(entry) {
-  return entry?.hooks?.some((h) => h.command?.endsWith('claudecode-notify notify') || h.command?.endsWith('claude-notify notify'));
+  return entry?.hooks?.some((h) => h.command?.endsWith('claude-buzz notify') || h.command?.endsWith('claude-notify notify'));
 }
 
 function mergeHooks(settings) {
@@ -112,7 +112,7 @@ async function install() {
   const alreadyInstalled = hasClaudeNotifyHooks(existing);
   if (alreadyInstalled) {
     console.log('  Already installed! Hooks are active.');
-    console.log('  Run "claudecode-notify status" to check, or "claudecode-notify uninstall" to remove.\n');
+    console.log('  Run "claude-buzz status" to check, or "claude-buzz uninstall" to remove.\n');
     return;
   }
 
@@ -132,7 +132,7 @@ async function install() {
   await sendTestNotification();
 
   console.log('\n  You\'re all set. You\'ll get notified when Claude needs you.');
-  console.log('  Run "claudecode-notify uninstall" to remove.\n');
+  console.log('  Run "claude-buzz uninstall" to remove.\n');
 }
 
 async function uninstall() {

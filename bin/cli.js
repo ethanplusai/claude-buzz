@@ -3,7 +3,7 @@
 const command = process.argv[2];
 
 const HELP = `
-claudecode-notify — macOS notifications for Claude Code
+claude-buzz — macOS notifications for Claude Code
 
 Commands:
   install     Add notification hooks to Claude Code

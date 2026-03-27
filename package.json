@@ -1,9 +1,9 @@
 {
-  "name": "claudecode-notify",
+  "name": "claude-buzz",
   "version": "1.0.0",
   "description": "Native macOS notifications when Claude Code needs you. Click to jump to the right terminal.",
   "bin": {
-    "claudecode-notify": "./bin/cli.js"
+    "claude-buzz": "./bin/cli.js"
   },
   "engines": {
     "node": ">=18"
@@ -29,6 +29,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethanplusai/claudecode-notify"
+    "url": "https://github.com/ethanplusai/claude-buzz"
   }
 }
